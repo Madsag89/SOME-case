@@ -1,0 +1,404 @@
+/* NOTE:
+ * Grid layout stuff starts at line 224. 
+ * The stuff before is just boring old CSS to make content look not crappy.
+ */
+
+/*--------------------------------------------------------------
+CSS Reset
+--------------------------------------------------------------*/
+html {
+	font-family: sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust:     100%;
+}
+
+body {
+	margin: 0;
+}
+
+img {
+	display: block;
+	border: 0;
+	width: 100%;
+	height: auto;
+}
+
+
+/*--------------------------------------------------------------
+Accessibility
+--------------------------------------------------------------*/
+/* Text meant only for screen readers */
+.screen-reader-text {
+	clip: rect(1px, 1px, 1px, 1px);
+	position: absolute !important;
+	height: 1px;
+	width: 1px;
+	overflow: hidden;
+}
+
+.screen-reader-text:hover,
+.screen-reader-text:active,
+.screen-reader-text:focus {
+	background-color: #f1f1f1;
+	border-radius: 3px;
+	box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6);
+	clip: auto !important;
+	color: #21759b;
+	display: block;
+	font-size: 14px;
+	font-weight: bold;
+	height: auto;
+	left: 5px;
+	line-height: normal;
+	padding: 15px 23px 14px;
+	text-decoration: none;
+	top: 5px;
+	width: auto;
+	z-index: 100000; /* Above WP toolbar */
+}
+
+
+/*--------------------------------------------------------------
+Typography
+--------------------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+	color: #404040;
+	font-family: 'Helvetica', Arial, sans-serif;
+	font-size: 18px;
+	line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	padding: 1em 0;
+}
+
+p {
+	margin: 0;
+	padding: 1em 0;
+}
+
+/*--------------------------------------------------------------
+General styles
+--------------------------------------------------------------*/
+
+.masthead {
+  padding: 2em;
+  background: #b1b1b1;
+  text-align: center;
+}
+
+.masthead img {
+  width: 180px;
+  margin: 0 auto;
+}
+
+.site-title {
+  margin: 1em 0 0;
+  padding: 0;
+  font-size: 1.5625em;
+  font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+
+}
+
+.site-description {  
+  margin: 0 0 1em;
+  padding: 0;
+  font-size: 1em;
+  font-family: Helvetica Neue, Helvetica, Roboto, Arial, sans-serif;
+  font-weight: 400;
+  color: hsla(0,0%,100%,.6);
+}
+
+.page-title {
+  text-align: center;
+  background-color: white;
+  border-bottom: 1px so black;
+}
+
+.main-content {
+	background: white;
+  padding: 2em;
+}
+
+.schedule-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.schedule-list li {
+  margin: .5em 0;
+  padding: 1em 0;
+  border-bottom: 1px dotted black;
+}
+
+.schedule-list li:last-child {
+  border-bottom: none;
+}
+
+.talk-title {
+  margin: 0;
+  padding: 0;
+  line-height: 1.3em;
+}
+
+.talk-speaker {
+  margin: .5em 0;
+  padding: 0;
+}
+
+.talk-time {
+  margin: .5em 0;
+  padding: 0;
+  font-weight: bold;
+}
+
+.sidebar {
+  background: #272427;
+}
+
+.info {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  color: white;
+}
+
+.info li {
+  padding: 1em;
+  text-align: center;
+}
+
+.a11y {
+  color: #272427;
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f09433', endColorstr='#bc1888',GradientType=1 );
+}
+
+.coc {
+  background: #4267B2
+}
+
+.contact {
+  background: #1DA1F2;
+}
+
+.faq {
+  background: #333
+}
+
+.colophon {
+	padding: 1em 2em;
+  background: #272427;
+  color: white;
+  text-align: center;
+}
+
+.colophon a {
+	color: white;
+}
+
+.colophon a:hover,
+.colophon a:focus {
+	border-bottom: 1px solid white;
+}
+
+.fab{
+  padding-right: 2%;
+}
+
+
+/*--------------------------------------------------------------
+If no grid support, limit width to 50em and center align
+--------------------------------------------------------------*/
+@supports not (display: grid) {
+	.page-title,
+  .main-content,
+  .sidebar {
+		max-width: 50em;
+		margin: 0 auto;
+	}
+}
+
+/*--------------------------------------------------------------
+CSS Grid layout for wider screens, when browser supports grid:
+--------------------------------------------------------------*/
+
+@supports (display: grid) {
+  @media screen and (min-width: 1000px) {
+    
+  	.site {
+			display: grid;
+			grid-template-columns: fr 1fr;
+      grid-template-rows: auto 3fr;
+      grid-template-areas:
+        "content-head content-head"
+        "main header"
+        "main sidebar"
+        "footer footer";
+		}
+    
+    .masthead {
+      grid-area: header;
+    }
+    
+    .page-title {
+      grid-area: content-head;
+    }
+    
+    .main-content {
+      grid-area: main;
+    }
+    
+    .sidebar {
+      grid-area: sidebar;
+      padding: 4%;
+      background-color: white;
+
+
+    }
+		
+    .colophon {
+      grid-area: footer;
+    }
+    
+	}
+  
+  @media screen and (max-width: 1200px) {
+    .site {
+			grid-template-columns: 4  fr 1fr 1fr;
+      grid-template-areas:
+        "content-head content-head content-head"
+        "main header header"
+        "main sidebar footer";
+		}
+  }
+}
+
+
+.navbar {       
+  display: flex;  
+  justify-content: space-between; 
+  background-color: rgb(52, 125, 209); 
+  align-items: center;
+  color: white; 
+}
+
+.tittel {
+  font-weight: bold; 
+  font-size: 2rem;
+  margin: .5rem; 
+  padding-left: .7rem; 
+}
+
+.navbar-content {
+  height: 100%; 
+}
+
+.navbar-content ul {
+  display: flex; 
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-content li {
+  list-style: none; 
+}
+
+.navbar-content li a { 
+  display: block;
+  text-decoration: none;
+  color: white;
+  padding: 1.5rem;
+  font-size: 20px;
+}
+
+ul li a:hover{
+  text-decoration: underline;
+}
+
+
+.navbar-content li:hover {  
+  background-color: rgb(93, 159, 235);
+}
+
+.toggle-button {  
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
+}
+
+.toggle-button .bar {  
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 10px;
+}
+
+@media (max-width: 620px) {  /* Når broswervinduet er 620px eller mindre sker følgende:*/
+
+  .navbar {                      
+      flex-direction: column;   
+      align-items: flex-start;   
+  }
+
+  .toggle-button {
+      display: flex; 
+  }
+
+  .navbar-content {   
+      display: none; 
+      width: 100%;
+  }
+
+  .navbar-content ul {   
+      width: 100%;
+      flex-direction: column; 
+      background-color: #333;
+  }
+
+  .navbar-content ul li:hover{
+      background-color: rgb(93, 159, 235);
+  }
+
+  ul li a:hover{
+      text-decoration: none;
+  }
+
+  .navbar-content ul li {
+      text-align: center; 
+  }
+
+  .navbar-content ul li a {   
+      padding: .5rem 1rem;    
+  }
+
+  .navbar-content.active {   
+      display: flex;       /* Der laves en active class som kan bruges i det simple javascript*/
+  }   
+
+}
+
+img{                
+display: block;
+max-width: 100%;
+height: auto; 
+position: relative;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
